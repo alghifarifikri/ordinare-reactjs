@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {APP_URL} from './config'
 
-export const getFood = ()=>{  
+export const getFood = ()=>{
 const url = APP_URL.concat('items/page?page=1&limits=5')
   return {
     type: 'GET_FOOD',

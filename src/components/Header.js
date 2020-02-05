@@ -50,6 +50,10 @@ class Header extends React.Component {
       })
     }
 
+    beforeLogin = () => {
+      alert('You Must Be Login First !')
+    }
+
     render(){
           const id = decode.id
           const {isOpen, ShowModalLogin, ShowModalRegister, ShowModalLogout} = this.state
@@ -222,7 +226,9 @@ class Header extends React.Component {
                         <Button className = "mt-1 mb-1">Search</Button>
                   </NavItem> */}
                   <NavItem>
-                      <Link to ={`/cart/${id}`} className = "nav-link text-light fa fa-shopping-cart mt-1"></Link>
+                    {token ?
+                      <Link to ={`/cart/${id}`} className = "nav-link text-light fa fa-shopping-cart mt-1"></Link> 
+                    :  <Link to ={`#`} onClick = {this.beforeLogin} className = "nav-link text-light fa fa-shopping-cart mt-1"></Link> }
                   </NavItem>
             </Nav>
           </div>

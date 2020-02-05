@@ -53,6 +53,7 @@ class Review extends React.Component{
         {headers: {
             Authorization: 'Bearer ' + token}})
             alert('success')
+            window.location.reload()
       } 
     
     render(){
@@ -74,7 +75,7 @@ class Review extends React.Component{
                           <CardTitle style={{fontSize: '20px'}}><b>{v.name}</b></CardTitle>
                           <CardText style={{fontSize: '15px'}}>{v.name_resto}</CardText>
                           <Label for="exampleSelect">Rating</Label>
-                            <Input type="select" name="select" value = {rating} onChange = {(e) => this.setState ({ rating : e.target.value })}>
+                            <Input type="select" name="select" value = {i.rating} onChange = {(e) => this.setState ({ rating : e.target.value })}>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -82,7 +83,7 @@ class Review extends React.Component{
                                 <option>5</option>
                             </Input>
                             <Label for="exampleText">Review</Label>
-                                <Input type="textarea" name="text" value = {review} onChange = {(e) => this.setState ({ review : e.target.value })} /><br/>
+                                <Input type="textarea" name="text" value = {i.review} onChange = {(e) => this.setState ({ review : e.target.value })} /><br/>
                             
                             <Button color = "primary" onClick =  {() => this.addReview(v.id_item)}>Submit</Button>
  

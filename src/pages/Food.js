@@ -13,18 +13,20 @@ class Food extends React.Component{
         super(props)
         this.state = {
             data : {},
-            isFetched : false
+            isFetched : false,
+            isLoading: true,
         }
     }
     async componentDidMount(){
-        this.props.dispatch(getFood())
+       await  this.props.dispatch(getFood())
+        await this.setState({isLoading: false})
     }
 
     prevButton = async()=>{
-            const url = this.props.food.data.Prev
-            if(url){
-                this.props.dispatch(getNext(url))
-            }
+        const url = this.props.food.data.Prev
+        if(url){
+            this.props.dispatch(getNext(url))
+        }
     } 
 
     nextButton = async()=>{
@@ -43,8 +45,8 @@ class Food extends React.Component{
                 <Row> 
                 {
                     // isFetched&&data.data.map
-                    !this.props.food.isLoading&&
-                    this.props.food.data.data.map(v=>(
+                    !this.state.isLoading &&
+                    this.props.food.data.map(v=>(
                         <Col md key = {v.id_item} className = 'mt-5'>
                         <Link to = {`/details/${v.id_item}`} className = 'text-light'>
                         <Card color = 'light' style = {{borderRadius : "40px"}} className = "shadow">

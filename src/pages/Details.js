@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import axios from 'axios'
 import qs from 'qs'
@@ -10,7 +11,8 @@ import { Container,
   CardHeader,
   Nav,
   Col,
-  Row} from 'reactstrap';
+  Row,
+  Alert} from 'reactstrap';
 import { Link } from 'react-router-dom'
 import {APP_URL} from '../resource/config' 
 import Jwt from 'jwt-decode'
@@ -39,7 +41,8 @@ class Details extends React.Component {
       quantity : 1,
       // dataItem : null,
       paramsId_item : null,
-      isLoading : true
+      isLoading : true,
+      id : decode.id,
     }
   }
   
@@ -75,6 +78,10 @@ class Details extends React.Component {
     },
     {headers: {
       Authorization: 'Bearer ' + token}})
+  }
+
+  beforeLogin = async () => {
+    alert('You Must Be Login First !')
   }
 
   buttonClickedPlus = ()=> {
@@ -133,16 +140,20 @@ class Details extends React.Component {
                                     <div className = "col-md-8">
                                      <input type="text" className="form-control text-center" value = {this.state.quantity}/>
                                      </div>
-                                     <div className = "col-md-2">
+                                     <div className = "col-md-2"> 
+                                     {token ? 
                                     <Button color = "primary" onClick={this.buttonClickedPlus}> + </Button>
+                                     : <Button color = "primary" onClick={this.beforeLogin}> + </Button> }
                                     </div>
                                   
                             </Nav>
         
-                         
-                         <Link to = {`../cart/${id_user}`} className = 'text-light text-center' > <Button color = "primary" className = "m-2" onClick = {this.addCart}> 
-                         Add to Cart</Button></Link>
-                         
+                            {token?
+                              <Link to = {`../cart/${id_user}`} className = 'text-light text-center' > <Button color = "primary" className = "m-2" onClick = {this.addCart}> 
+                              Add to Cart</Button></Link> 
+                            :
+                            <Link to = {'#'} className = 'text-light text-center' > <Button color = "danger" className = "m-2" onClick = {this.beforeLogin}> 
+                              Add to Cart</Button></Link>  }
                      </Card>
               </div>
 

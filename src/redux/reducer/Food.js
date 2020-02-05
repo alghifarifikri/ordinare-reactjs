@@ -23,7 +23,7 @@ const initialState = {
         }
       case 'GET_FOOD_FULFILLED':
         return {
-          data: action.payload.data,
+          data: action.payload.data.data,
           isLoading: false,
           isError: false
         }

@@ -1,41 +1,38 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import axios from 'axios'
 import { Link, withRouter } from 'react-router-dom'
 import qs from 'qs'
-import {Row, Col, Container, Button, Card, Alert} from 'reactstrap'
+import {Row, Col, Container, Button, Card, Alert, Input} from 'reactstrap'
 import { APP_URL } from '../resource/config'
 import '../resource/style.css'
-import { getFood } from '../redux/action/Food'
+import { getSearchName } from '../redux/action/SearchName'
 import { connect } from 'react-redux'
 
 class Name extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            data : [],
+            data : {},
             name : '',
-            isFetched : false
+            isFetched : false,
+            params: '',
+            isLoading: false,
         }
     }
     
     async componentDidMount(){
-        //  const name = this.state.query
-        // const {data} = await axios.get(APP_URL.concat(`items/search/asc?name=${name}&page=1&limit=5`))
-        
-        // const {data} = await axios.get(APP_URL.concat(`items/search/asc?`), {params : {name : 'name'}}
-        // this.setState({data, isFetched : !this.state.isFetched})
+        await this.props.dispatch(getSearchName())
+        this.setState({isLoading: true})
     }
 
-    search = async => {
-       
+    getItem = async () => {
+        const params = this.state.params
+        console.log(params)
+        const url = APP_URL.concat(`items/search?name=${params}`)
+        const {data} = await axios.get(url)
+        this.setState({data, isFetched:!this.state.isFetched, isLoading: false})
     }
-        
-    //     // this.props.dispatch(getFood())
-    //     const {name} = qs.parse(this.props.location.search)
-    //     console.log(name)
-    //     const {data} = await axios.get(APP_URL.concat(`items/search/asc?name=${name}&page=1&limit=5`))
-    //     this.setState({data, isFetched:!this.state.isFetched})
-    // }
 
     prevButton = async()=>{
             const url = this.state.data.Prev
@@ -54,7 +51,7 @@ class Name extends React.Component{
     }
 
     render(){
-        const {isFetched, data} = this.state
+        const {isFetched, data, params} = this.state
         return(
             <div>
             <Container>
@@ -66,9 +63,9 @@ class Name extends React.Component{
                 
                 <Col md={6}>
                 <Card color = 'light' style = {{borderRadius : "40px", padding:20}} className = "shadow">
-                <input type="text" className = "m-2" className="form-control" placeholder="Find Here" />
+                <Input type="text" value={params} onChange = {(e) => this.setState ({ params : e.target.value })} className = "m-2" className="form-control" placeholder="Find Here" />
 
-                <Button color = "primary" className = "mt-2" style = {{width : '20%'}}>Search</Button>
+                <Button color = "primary" onClick={this.getItem} className = "mt-2" style = {{width : '20%'}}>Search</Button>
                 </Card>
                 
                 </Col>
@@ -76,13 +73,14 @@ class Name extends React.Component{
                 <Col md={3}>
                 
                 </Col>
-                {/* {
-                    // !this.props.food.isLoading&&
-                    // this.props.food.data.map
-                    isFetched&&data.data.map(v=>(
+                {
+                    // !this.props.searchname.isLoading&&
+                    // this.props.searchname.data.map
+                    isFetched && data.data.map(v=>(
                         <Col md key = {v.id_item} className = 'mt-5'>
                         <Link to = {`/details/${v.id_item}`} className = 'text-light'>
                         <Card color = 'light' style = {{borderRadius : "40px"}} className = "shadow">
+                            {console.log(data.data)}
                             <div className = 'text-center text-dark mt-1' ><b>{v.name}</b></div><br/>
                             <div className = 'text-center'> <img src={APP_URL.concat(`storage/${v.image}`)} alt = {v.name}
                             style = {{width : "150px", height : "150px"}}/> </div> <br/>                       
@@ -94,27 +92,27 @@ class Name extends React.Component{
                         </Link> 
                         </Col>)
                     )
-                } */}
+                }
                 
                 </Row>
-            <Row className = 'mt-5 mb-5'>
+            {/* <Row className = 'mt-5 mb-5'>
                 <Col md={6} className = 'text-center'>
                     <Button onClick = {this.prevButton} color = 'primary'> Prev </Button>
                 </Col>
                 <Col md={6} className = 'text-center'>
                     <Button onClick = {this.nextButton} color = 'primary'> Next </Button>
                 </Col>
-            </Row>
+            </Row> */}
             </Container>
             </div>
         )
     }
 }
 
-// const mapStateToProps = state =>{
-//     return{
-//       food: state.food
-//     }
-//   }
+const mapStateToProps = state =>{
+    return{
+      searchname: state.searchname
+    }
+  }
 
-export default Name
+export default connect (mapStateToProps) (Name)
