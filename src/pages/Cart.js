@@ -8,6 +8,7 @@ import { Button, Container, Row, Card, CardTitle, CardText, Input, Nav, Col } fr
 import { APP_URL } from '../resource/config';
 import { getCarts } from '../redux/action/Cart'
 import { connect } from 'react-redux'
+import StarRatings from 'react-star-ratings'
 
 const token = Cookie.get('token')
 let decode = ''
@@ -121,9 +122,9 @@ class Cart extends React.Component{
                         <div className="col-md-5 ml-5">
                           <CardTitle style={{fontSize: '20px'}}><b>{v.name}</b></CardTitle>
                           <CardText style={{fontSize: '15px'}}>{v.name_resto}</CardText>
-                          <CardText>
-                              Rating : {v.rating}
-                          </CardText>
+                              <CardText>
+                          <StarRatings rating = {v.rating} starRatedColor="yellow" numberOfStars={5} starDimension = "25px" starSpacing = "1px"/>
+                        </CardText>
                           <CardText>
                             <NumberFormat value={v.price} displayType={'text'} thousandSeparator={true} prefix={'Rp. '} renderText={value => <div>Price : {value}</div>} />
                           </CardText><CardText>

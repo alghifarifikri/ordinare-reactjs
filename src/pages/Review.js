@@ -6,6 +6,7 @@ import Cookie from 'js-cookie'
 import { Link, Route } from 'react-router-dom'
 import { Button, Container, Row, Card, CardTitle, CardText, Input, Nav, Col, Label } from 'reactstrap'
 import { APP_URL } from '../resource/config';
+import StarRatings from 'react-star-ratings'
 
 const token = Cookie.get('token')
 let decode = ''
@@ -55,6 +56,12 @@ class Review extends React.Component{
             alert('success')
             window.location.reload()
       } 
+
+      changeRating = (newRating) => {
+        this.setState({
+          rating: newRating
+        });
+      }
     
     render(){
         const id_user = decode.id
@@ -74,14 +81,23 @@ class Review extends React.Component{
                         <div className="col-md-5 ml-5">
                           <CardTitle style={{fontSize: '20px'}}><b>{v.name}</b></CardTitle>
                           <CardText style={{fontSize: '15px'}}>{v.name_resto}</CardText>
-                          <Label for="exampleSelect">Rating</Label>
+                          {/* <Label for="exampleSelect">Rating</Label>
                             <Input type="select" name="select" value = {i.rating} onChange = {(e) => this.setState ({ rating : e.target.value })}>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
                                 <option>5</option>
-                            </Input>
+                            </Input> */}
+                            <StarRatings
+                                rating={this.state.rating}
+                                starRatedColor="yellow"
+                                changeRating={this.changeRating}
+                                numberOfStars={5}
+                                name='rating'
+                                starDimension="40px"
+                                starSpacing="2px"
+                              /><br/>
                             <Label for="exampleText">Review</Label>
                                 <Input type="textarea" name="text" value = {i.review} onChange = {(e) => this.setState ({ review : e.target.value })} /><br/>
                             

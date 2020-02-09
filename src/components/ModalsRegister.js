@@ -22,7 +22,8 @@ class Register extends React.Component {
     async onSubmit (event){
         event.preventDefault();
         const data = await Axios.post(APP_URL.concat('user/register'),this.state)
-        window.location = '/Food'
+        window.location = '/'
+        console.log(this.state.username, data)
           }
 
 

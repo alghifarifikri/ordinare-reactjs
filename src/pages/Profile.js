@@ -37,7 +37,6 @@ async componentDidMount(){
     const url = APP_URL.concat(`user/profile/${id}`)
     const user = await axios.get(url)
     const {data} = user
-    console.log(data)
     this.setState(
         { data, isFetchedData:true})
 }
@@ -56,6 +55,7 @@ onFormSubmit(e){
     const url = APP_URL.concat(`user/input_image/${id}`)
     axios.post(url ,formData, config, {id_user : id})
         .then((response) => {
+            console.log(config)
             alert("The file is successfully uploaded");
             window.location.reload()
         }).catch((error) => {
