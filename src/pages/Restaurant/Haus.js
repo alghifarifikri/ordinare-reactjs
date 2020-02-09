@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import {Row, Col, Container, Button, Card} from 'reactstrap'
+import {Row, Col, Container, Button, Card, Spinner} from 'reactstrap'
 import { APP_URL } from '../../resource/config'
 import { connect } from 'react-redux'
 import { getHaus } from '../../redux/action/Restaurant/Haus'
@@ -43,7 +43,10 @@ class Haus extends React.Component{
             
             <Container>
                 <Row> 
-                {
+                {this.props.haus.isLoading ?
+                <Col className = 'mt-5 text-center'>
+                        <Spinner style={{width: 200, height: 200}}  color="primary" /> 
+                    </Col> :
                     // isFetched&&data.data.map
                     !this.props.haus.isLoading&&
                     this.props.haus.data.map(v=>(

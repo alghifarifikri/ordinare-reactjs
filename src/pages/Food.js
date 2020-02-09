@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import StarRatings from 'react-star-ratings'
-import {Row, Col, Container, Button, Card, Alert} from 'reactstrap'
+import {Row, Col, Container, Button, Card, Alert, Spinner} from 'reactstrap'
 import { APP_URL } from '../resource/config'
 import '../resource/style.css'
 import { getFood, getNext } from '../redux/action/Food'
@@ -31,7 +31,6 @@ class Food extends React.Component{
 
     nextButton = async()=>{
         const url = this.props.food.data.Next
-        console.log(url)
         if(url){
             this.props.dispatch(getNext(url))
         }
@@ -43,10 +42,13 @@ class Food extends React.Component{
             
             <Container>
                 <Row> 
-                {
+                {this.state.isLoading ?
+                <Col className = 'mt-5 text-center'>
+                        <Spinner style={{width: 200, height: 200}}  color="primary" /> 
+                    </Col> :
                     // isFetched&&data.data.map
                     !this.state.isLoading &&
-                    this.props.food.data.map(v=>(
+                    this.props.food.data.data.map(v=>(
                         <Col md key = {v.id_item} className = 'mt-5'>
                         <Link to = {`/details/${v.id_item}`} className = 'text-light'>
                         <Card color = 'light' style = {{borderRadius : "40px"}} className = "shadow">

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import {Row, Col, Container, Button, Card} from 'reactstrap'
+import {Row, Col, Container, Button, Card, Spinner} from 'reactstrap'
 import { APP_URL } from '../../resource/config'
 import { getThaiTea } from '../../redux/action/Category/Thaitea'
 import { connect } from 'react-redux'
@@ -43,7 +43,10 @@ class Thaitea extends React.Component{
             
             <Container>
                 <Row> 
-                {
+                {this.props.thaitea.isLoading ?
+                <Col className = 'mt-5 text-center'>
+                        <Spinner style={{width: 200, height: 200}}  color="primary" /> 
+                    </Col> :
                     // isFetched&&data.data.map
                     !this.props.thaitea.isLoading&&
                     this.props.thaitea.data.map(v=>(

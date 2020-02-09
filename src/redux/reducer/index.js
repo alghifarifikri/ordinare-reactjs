@@ -17,6 +17,7 @@ import review from './Review'
 import carts from './Cart'
 import suggest from './Suggest'
 import searchname from './SearchName'
+import searchrating from './SearchRating'
 
 const appReducer = combineReducers({
   food, 
@@ -36,6 +37,7 @@ const appReducer = combineReducers({
   review,
   suggest,
   searchname,
+  searchrating,
 })
 
 export default appReducer

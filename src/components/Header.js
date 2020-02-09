@@ -5,6 +5,7 @@ import Register from './ModalsRegister'
 import { Link } from 'react-router-dom'
 import Jwt from 'jwt-decode'
 import Cookie from 'js-cookie'
+import ForgotPassword from './ModalsForgot'
 
 const token = Cookie.get('token')
 let decode = ''
@@ -20,6 +21,7 @@ class Header extends React.Component {
       isOpen : false,
       ShowModalLogin : false,
       ShowModalRegister : false,
+      ShowModalForgot : false,
       ShowModalLogout : false,
       id : decode.id,
       search : ''
@@ -44,6 +46,12 @@ class Header extends React.Component {
       })
     }
 
+    toggleModalForgot = () => {
+      this.setState({
+        ShowModalForgot : !this.state.ShowModalForgot
+      })
+    }
+
     toggleModalLogout = () => {
       this.setState({
         ShowModalLogout : !this.state.ShowModalLogout
@@ -56,7 +64,7 @@ class Header extends React.Component {
 
     render(){
           const id = decode.id
-          const {isOpen, ShowModalLogin, ShowModalRegister, ShowModalLogout} = this.state
+          const {isOpen, ShowModalLogin, ShowModalRegister, ShowModalForgot, ShowModalLogout} = this.state
     return(
       <Container-fluid>
           <div style = {{backgroundColor : "white"}}>
@@ -71,7 +79,12 @@ class Header extends React.Component {
                 </Nav>
       
               {!token?
-                          <Row className = "mr-2">  
+                          <Row className = "mr-2"> 
+                          <div>
+                                  <ForgotPassword 
+                                    ShowModalForgot = {ShowModalForgot} toggle = {this.toggleModalForgot}/>
+                                  </div>&nbsp;
+
                                 <div>
                                   <Login 
                                     ShowModalLogin = {ShowModalLogin} toggle = {this.toggleModalLogin}/>
@@ -206,13 +219,13 @@ class Header extends React.Component {
       
                       <DropdownItem>
                           <NavItem>
-                              <Link className = "nav-link" to ="/name">Search Name</Link>
+                              <Link className = "nav-link" to ="/name">Search by Name</Link>
                           </NavItem>
                       </DropdownItem>
       
                       <DropdownItem>
                         <NavItem>
-                              <Link className = "nav-link" to ="/haus">Search Price</Link>
+                              <Link className = "nav-link" to ="/rating">Search by Rating</Link>
                           </NavItem>
                       </DropdownItem>
 

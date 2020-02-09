@@ -22,6 +22,7 @@ import Localdrinks from './pages/Category/Localdrinks';
 import Thaitea from './pages/Category/Thaitea';
 import Snack from './pages/Category/Snack';
 import Vegetarian from './pages/Category/Vegetarian';
+import Rating from './pages/Rating';
 
 class App extends React.Component{
   constructor(props){
@@ -94,6 +95,10 @@ class App extends React.Component{
 
               <Route path = '/name' exact>
                   <Name/>
+              </Route>
+
+              <Route path = '/rating' exact>
+                  <Rating/>
               </Route>
 
               <Route path = '/details/:id' exact component = {Details}/>

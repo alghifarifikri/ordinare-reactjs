@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import {Row, Col, Container, Button, Card} from 'reactstrap'
+import {Row, Col, Container, Button, Card, Spinner} from 'reactstrap'
 import { APP_URL } from '../resource/config'
 import '../resource/style.css'
 import { connect } from 'react-redux'
@@ -44,7 +44,10 @@ class Sortprice extends React.Component{
             
             <Container>
                 <Row> 
-                {
+                {this.props.sort.isLoading ?
+                <Col className = 'mt-5 text-center'>
+                        <Spinner style={{width: 200, height: 200}}  color="primary" /> 
+                    </Col> :
                     // isFetched&&data.data.map
                     !this.props.sort.isLoading&&
                     this.props.sort.data.map(v=>(

@@ -108,10 +108,10 @@ class Cart extends React.Component{
                 <Row>
                   <Col className = "col md-7 mt-4">
                 {
-                    // !this.props.carts.isLoading&&
-                  // this.props.carts.data.map
-                   isFetchedDataItem&&
-                  data.data.map((v,i)=>(
+                   //  isFetchedDataItem&&
+                  // data.data.map
+                    !this.props.carts.isLoading&&
+                  this.props.carts.data.map((v,i)=>(
                   <div key={v.id_item}>
                     <Card className="mb-3 shadow" body style = {{borderRadius : "40px"}}>
                       <div className="row">

@@ -4,7 +4,9 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter
+    ModalFooter,
+    Col,
+    Spinner
 } from 'reactstrap';
 import {APP_URL} from '../resource/config'
 import Axios from 'axios';
@@ -19,7 +21,8 @@ class Login extends React.Component {
         this.state = {
             username: '',
             password: '',
-            token: ''
+            token: '',
+            loading: false,
         }
     }
 
@@ -31,7 +34,7 @@ class Login extends React.Component {
         }) 
             .then((res) => {
                 this.setState({
-                    token: res.data.auth
+                    token: res.data.auth,
                     
                 })
                 
@@ -102,7 +105,7 @@ class Logout extends React.Component {
             console.log(res)
             if (res.data.success === true) {
                 Cookie.remove('token')
-                window.location.reload()
+                window.location = '/Food'
             }
         })
         .catch((err) => {
