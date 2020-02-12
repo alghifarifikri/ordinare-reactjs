@@ -34,17 +34,17 @@ Ordinare is a website search food
 ## Screenshots
   <p align="center">
     <span>
-      <img src="./ss/1.png" />
-      &nbsp;&nbsp;
-      <img src="./ss/2.png" />
-      &nbsp;&nbsp;
+      <image width="300" src="./ss/1.PNG" />
+      <image width="300" src="./ss/2.PNG" />
+      <image width="300" src="./ss/3.PNG" />
+      <image width="300" src="./ss/4.PNG" />
     </span>
   </p>
-<p align="center">
+<!-- <p align="center">
     <span>
       <img src="./ss/3.png" />
       &nbsp;&nbsp;
       <img src="./ss/4.png" />
     </span>
-  </p>
+  </p> -->
   
